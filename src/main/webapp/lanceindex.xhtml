@@ -1,0 +1,49 @@
+<ui:composition template="/templates/layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	<ui:define name="content">
+
+
+		<p:panel>
+
+			<h:form id="form">
+			<h:panelGrid columns="3">
+				<p:inputText value="#{noticiasTimesController.clube}" id="clube" />
+
+				<p:commandButton value="Consultar" update="tbl" process="@form">
+				 	<p:ajax update="tbl" listener="#{noticiasTimesController.find()}"/>
+				</p:commandButton>
+			</h:panelGrid>
+
+			<p:dataTable value="#{noticiasTimesController.noticias}" lazy="true"
+				var="noticia" border="1" cellpadding="2" cellspacing="0"
+				paginator="true" paginatorPosition="bottom" rows="5" id="tbl">
+
+				<p:column headerText="Titulo" width="250">
+					<h:outputText value="#{noticia.titulo}" />
+				</p:column>
+				<p:column headerText="Descrição" sortBy="#{noticia.titulo}">
+					<h:outputText value="#{noticia.texto}" />
+				</p:column>
+				<p:column headerText="Data" width="70">
+					<h:outputText value="#{noticia.data}">
+						<f:convertDateTime type="date" locale="pt_BR"
+							timeZone="America/Sao_Paulo" />
+					</h:outputText>
+				</p:column>
+				<p:column headerText="Link" width="100" style="text-align: right">
+					<h:outputText value="#{noticia.link}">
+					</h:outputText>
+				</p:column>
+
+			</p:dataTable>
+		</h:form>
+		</p:panel>
+
+	</ui:define>
+</ui:composition>
+
+

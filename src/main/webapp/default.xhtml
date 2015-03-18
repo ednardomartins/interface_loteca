@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<h:outputStylesheet library="css" name="table-style.css" />
+</h:head>
+<h:body>
+	<div>
+		<f:ajax event="change"
+			listener="#{projectBean.add}" render="tableV">
+			<h:selectOneMenu id="vos" value="#{projectBean.valuesOctopusId}">
+				<f:selectItem itemValue="" itemLabel="Select" />
+				<f:selectItems value="#{projectBean.listValueOctopus()}" var="o"
+					itemValue="#{o.value}" itemLabel="#{o.label}">
+				</f:selectItems>
+			</h:selectOneMenu>
+		</f:ajax>
+	</div>
+
+	<div>
+		<h:dataTable id="tableV" value="#{projectBean.showValuesAdd()}"
+			var="value">
+			<f:facet name="header">Values </f:facet>
+			<h:column>
+				<fieldset>
+					<legend>#{value.idOctopus.varOctopus}</legend>
+					#{value.alternative}
+
+					<f:ajax event="action" render="tableV">
+						<h:commandLink
+							action="#{projectBean.removeValuesOctopusToList(value.idValuesOctopus)}"
+							value="X">
+						</h:commandLink>
+					</f:ajax>
+				</fieldset>
+			</h:column>
+		</h:dataTable>
+	</div>
+
+
+
+</h:body>
+
+</html>

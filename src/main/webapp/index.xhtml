@@ -1,0 +1,63 @@
+<ui:composition template="/templates/layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	<ui:define name="content">
+
+
+		<p:panel>
+
+			<h:form id="form">
+				<h:panelGrid columns="1" id="Artistas">
+
+					<!-- 	<h:outputLabel value="Data Início"></h:outputLabel>
+					<p:calendar locale="pt" showButtonPanel="true" navigator="true"
+						id="dtIncio" showOn="button"></p:calendar>
+
+					<h:outputLabel value="Data Fim"></h:outputLabel>
+					<p:calendar locale="pt" showButtonPanel="true" navigator="true"
+						id="dtFim" showOn="button"></p:calendar>
+
+					<h:outputLabel value="Cidade"></h:outputLabel>
+					<p:autoComplete id="acSimple" value="#{autocompleteController.text}"
+						completeMethod="#{autocompleteController.find()}" /> -->
+
+					<h:outputLabel value="Clube"></h:outputLabel>
+					<p:inputText id="clube">
+					</p:inputText>
+					<p:commandButton value="Buscar"
+						actionListener="#{noticiasTimesController.find(clube)}"
+						update="noticias">
+						<f:ajax execute="@this" render="@form"/>
+					</p:commandButton>
+				</h:panelGrid>
+
+				<br />
+				<p:dataTable id="noticias" var="noticia"
+					value="#{noticiasTimesController.noticias}"
+					styleClass="userDataTableStyle">
+					<p:column headerText="Id">
+						<h:outputText value="#{noticia.id}" />
+					</p:column>
+
+					<p:column headerText="titulo">
+						<h:outputText value="#{noticia.titulo}" />
+					</p:column>
+
+					<p:column headerText="texto">
+						<h:outputText value="#{noticia.texto}" />
+					</p:column>
+
+					<p:column headerText="Data">
+						<h:outputText value="#{noticia.data}" />
+					</p:column>
+				</p:dataTable>
+			</h:form>
+		</p:panel>
+
+	</ui:define>
+</ui:composition>
+
+
